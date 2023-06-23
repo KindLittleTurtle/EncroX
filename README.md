@@ -14,7 +14,7 @@ EncroX 使用 AGPL-3 开源许可证。请仔细阅读许可证文本以了解�
 - 支持生成 RSA 公钥和私钥对。
 - 提供基于 RSA 的加密和解密功能，用于保护数据的传输和存储。
 - 提供基于 ECC 的加密和解密功能，用于安全通信和数据保护。
-- 支持 AES（高级加密标准）密钥生成和对称加密。
+- 提供基于 AES 的加密和解密功能，用于快速且可靠地加密和解密数据。
 - 提供简单易用的接口，方便集成到您的应用程序和系统中。
 
 ## 使用示例
@@ -22,6 +22,7 @@ EncroX 使用 AGPL-3 开源许可证。请仔细阅读许可证文本以了解�
 ### 生成 ECC 密钥对
 
 ```python
+from EncroX.ecc import generate_ecc_key
 private_key, public_key = generate_ecc_keys(curve='256')
 ```
 
@@ -46,6 +47,7 @@ def generate_ecc_keys(curve='256') -> Tuple[str, str]:
 ### 生成 RSA 密钥对
 
 ```python
+from EncroX.rsa import generate_rsa_keys
 private_key, public_key = generate_rsa_keys(bits='2048')
 ```
 
@@ -72,6 +74,7 @@ def generate_rsa_keys(bits='2048') -> Tuple[str, str]:
 ### 使用 RSA 公钥加密数据
 
 ```python
+from EncroX.rsa import encrypted_data
 encrypted_data = rsa_encrypt(data, public_key)
 ```
 
@@ -97,6 +100,7 @@ def rsa_encrypt(data, public_key) -> Union[str, bytes]:
 ### 使用 RSA 私钥解密数据
 
 ```python
+from EncroX.rsa import rsa_decrypt
 decrypted_data = rsa_decrypt(encrypted_data_with_key, private_key)
 ```
 
@@ -122,6 +126,7 @@ def rsa_decrypt(encrypted_data_with_key, private_key) -> Union[str, bytes]:
 ### 使用 ECC 加密数据
 
 ```python
+from EncroX.ecc import ecc_encrypt
 encrypted_data = ecc_encrypt(data, public_key, private_key)
 ```
 
@@ -148,6 +153,7 @@ def ecc_encrypt(data, public_key, private_key) -> Union[str, bytes]:
 ### 使用 ECC 解密数据
 
 ```python
+from EncroX.ecc import ecc_decrypt
 decrypted_data = ecc_decrypt(encrypted_data, public_key, private_key)
 ```
 
@@ -166,6 +172,58 @@ def ecc_decrypt(encrypted_data, public_key, private_key) -> Union[str, bytes]:
         private_key (str): 自己的PE
 
 M格式ECC私钥。
+
+    Returns:
+        str or bytes: 解密后的原始数据，返回的类型与传入的数据类型相同。
+    """
+    ...
+```
+
+### 使用 AES 加密数据
+
+```python
+from EncroX.aes import aes_encrypt
+encrypted_data = aes_encrypt(key, data)
+```
+
+使用 AES 密钥对数据进行加密，并返回加密后的数据。
+
+#### 函数签名
+
+```python
+def aes_encrypt(key: Union[str, bytes], data: Union[str, bytes]) -> Union[str, bytes]:
+    """
+    使用 AES 密钥对数据进行加密。
+
+    Args:
+        key (str or bytes): AES 密钥，长度必须为 16、24 或 32 字节。
+        data (str or bytes): 需要加密的数据，数据类型为字符串或字节。
+
+    Returns:
+        str or bytes: 加密后的数据，返回的类型与传入的数据类型相同。
+    """
+    ...
+```
+
+### 使用 AES 解密数据
+
+```python
+from EncroX.aes import aes_decrypt
+decrypted_data = aes.aes_decrypt(key, encrypted_data)
+```
+
+使用 AES 密钥解密数据，并返回解密后的原始数据。
+
+#### 函数签名
+
+```python
+def aes_decrypt(key: Union[str, bytes], encrypted_data: Union[str, bytes]) -> Union[str, bytes]:
+    """
+    使用 AES 密钥解密数据。
+
+    Args:
+        key (str or bytes): AES 密钥，长度必须为 16、24 或 32 字节。
+        encrypted_data (str or bytes): 需要解密的数据，数据类型为字符串或字节。
 
     Returns:
         str or bytes: 解密后的原始数据，返回的类型与传入的数据类型相同。
