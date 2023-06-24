@@ -59,16 +59,22 @@ def ecc_encrypt(data, public_key, private_key):
     Returns:
         str or bytes: 加密后的数据，返回的类型与传入的数据类型相同。
     """
-    private_key = serialization.load_pem_private_key(
-        private_key.encode(),
-        password=None,
-        backend=default_backend()
-    )
+    try:
+        private_key = serialization.load_pem_private_key(
+            private_key.encode(),
+            password=None,
+            backend=default_backend()
+        )
+    except:
+        raise Exception("无效的私钥")
 
-    public_key = serialization.load_pem_public_key(
-        public_key.encode(),
-        backend=default_backend()
-    )
+    try:
+        public_key = serialization.load_pem_public_key(
+            public_key.encode(),
+            backend=default_backend()
+        )
+    except:
+        raise Exception("无效的公钥")
 
     # 检查 data 类型并进行必要的转换
     if isinstance(data, str):
@@ -102,16 +108,22 @@ def ecc_decrypt(encrypted_data, public_key, private_key):
     Returns:
         str or bytes: 解密后的原始数据，返回的类型与传入的数据类型相同。
     """
-    private_key = serialization.load_pem_private_key(
-        private_key.encode(),
-        password=None,
-        backend=default_backend()
-    )
+    try:
+        private_key = serialization.load_pem_private_key(
+            private_key.encode(),
+            password=None,
+            backend=default_backend()
+        )
+    except:
+        raise Exception("无效的私钥")
 
-    public_key = serialization.load_pem_public_key(
-        public_key.encode(),
-        backend=default_backend()
-    )
+    try:
+        public_key = serialization.load_pem_public_key(
+            public_key.encode(),
+            backend=default_backend()
+        )
+    except:
+        raise Exception("无效的公钥")
 
     # 检查 data 类型并进行必要的转换
     if isinstance(encrypted_data, str):

@@ -51,6 +51,7 @@ def generate_rsa_keys(bits='2048'):
     # 返回PEM格式的公钥和私钥
     return str(private_pem, encoding="utf-8"), str(public_pem, encoding="utf-8")
 
+
 # RSA加密
 def rsa_encrypt(data, public_key):
     """
@@ -63,10 +64,13 @@ def rsa_encrypt(data, public_key):
     Returns:
         str or bytes: 包含加密后的数据和加密后的AES密钥的元组，返回的类型与传入的数据类型相同。
     """
-    public_key = serialization.load_pem_public_key(
-        public_key.encode(),
-        backend=default_backend()
-    )
+    try:
+        public_key = serialization.load_pem_public_key(
+            public_key.encode(),
+            backend=default_backend()
+        )
+    except:
+        raise Exception("无效的加密密钥")
 
     # 检查 data 类型并进行必要的转换
     if isinstance(data, str):
@@ -92,6 +96,7 @@ def rsa_encrypt(data, public_key):
     # 如果 data 为 str 则返回 str密文 ，否则返回 bytes
     return base64.urlsafe_b64encode(encrypted_data_with_key).decode('utf-8') if data_str else encrypted_data_with_key
 
+
 # RSA解密
 def rsa_decrypt(encrypted_data_with_key, private_key):
     """
@@ -104,11 +109,14 @@ def rsa_decrypt(encrypted_data_with_key, private_key):
     Returns:
         str or bytes: 解密后的原始数据，返回的类型与传入的数据类型相同。
     """
-    private_key = serialization.load_pem_private_key(
-        private_key.encode(),
-        password=None,
-        backend=default_backend()
-    )
+    try:
+        private_key = serialization.load_pem_private_key(
+            private_key.encode(),
+            password=None,
+            backend=default_backend()
+        )
+    except:
+        raise Exception("无效的加密密钥")
 
     # 检查 data 类型并进行必要的转换
     if isinstance(encrypted_data_with_key, str):
@@ -121,8 +129,8 @@ def rsa_decrypt(encrypted_data_with_key, private_key):
         # 提取 AES 密钥的长度和 AES 密钥
         aes_key_len_end = encrypted_data_with_key.find(b'-')
         aes_key_len = int(encrypted_data_with_key[:aes_key_len_end])
-        encrypted_aes_key = encrypted_data_with_key[aes_key_len_end+1:aes_key_len_end+1+aes_key_len]
-        encrypted_data = encrypted_data_with_key[aes_key_len_end+1+aes_key_len:]
+        encrypted_aes_key = encrypted_data_with_key[aes_key_len_end + 1:aes_key_len_end + 1 + aes_key_len]
+        encrypted_data = encrypted_data_with_key[aes_key_len_end + 1 + aes_key_len:]
 
         aes_key = private_key.decrypt(
             encrypted_aes_key,
