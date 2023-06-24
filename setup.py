@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='EncroX',
-    version='1.0.2',
+    version='1.0.3',
     packages=['EncroX'],
     url='https://github.com/KindLittleTurtle/EncroX',
     license='AGPL3.0',
