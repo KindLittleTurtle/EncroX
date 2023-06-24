@@ -74,7 +74,7 @@ def generate_rsa_keys(bits='2048') -> Tuple[str, str]:
 ### 使用 RSA 公钥加密数据
 
 ```python
-from EncroX.rsa import encrypted_data
+from EncroX.rsa import rsa_encrypt
 encrypted_data = rsa_encrypt(data, public_key)
 ```
 
@@ -209,7 +209,7 @@ def aes_encrypt(key: Union[str, bytes], data: Union[str, bytes]) -> Union[str, b
 
 ```python
 from EncroX.aes import aes_decrypt
-decrypted_data = aes.aes_decrypt(key, encrypted_data)
+decrypted_data = aes_decrypt(key, encrypted_data)
 ```
 
 使用 AES 密钥解密数据，并返回解密后的原始数据。
