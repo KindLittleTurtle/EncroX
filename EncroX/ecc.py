@@ -83,7 +83,10 @@ def ecc_encrypt(data, public_key, private_key):
     else:
         data_str = False
 
-    shared_key = private_key.exchange(ec.ECDH(), public_key)
+    try:
+        shared_key = private_key.exchange(ec.ECDH(), public_key)
+    except:
+        raise Exception("密钥curve不匹配")
 
     # Hash the shared key to get a 32-byte (256-bit) key
     shared_key_hash = hashes.Hash(hashes.SHA256())
