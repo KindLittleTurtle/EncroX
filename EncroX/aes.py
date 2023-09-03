@@ -20,13 +20,13 @@ import base64
 import hashlib
 
 
-def aes_encrypt(key, data):
+def aes_encrypt(data, key):
     """
     使用 AES 密钥对数据进行加密。
 
     Args:
-        key (str or bytes): AES 密钥，当 key 的类型为 bytes 时，长度必须为 16、24 或 32 字节。
         data (str or bytes): 需要加密的数据。
+        key (str or bytes): AES 密钥，当 key 的类型为 bytes 时，长度必须为 16、24 或 32 字节。
 
     Returns:
         str or bytes: 加密后的数据。
@@ -60,13 +60,13 @@ def aes_encrypt(key, data):
     return base64.urlsafe_b64encode(encrypted_data).decode('utf-8') if data_str else encrypted_data
 
 
-def aes_decrypt(key, encrypted_data):
+def aes_decrypt(encrypted_data, key):
     """
     使用 AES 密钥解密数据。
 
     Args:
-        key (str or bytes): AES 密钥，当 key 的类型为 bytes 时，长度必须为 16、24 或 32 字节。
         encrypted_data (str or bytes): 需要解密的数据。
+        key (str or bytes): AES 密钥，当 key 的类型为 bytes 时，长度必须为 16、24 或 32 字节。
 
     Returns:
         str or bytes: 解密后的原始数据。

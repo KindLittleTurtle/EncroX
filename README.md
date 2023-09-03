@@ -183,7 +183,7 @@ M格式ECC私钥。
 
 ```python
 from EncroX.aes import aes_encrypt
-encrypted_data = aes_encrypt(key, data)
+encrypted_data = aes_encrypt(data, key)
 ```
 
 使用 AES 密钥对数据进行加密，并返回加密后的数据。
@@ -191,7 +191,7 @@ encrypted_data = aes_encrypt(key, data)
 #### 函数签名
 
 ```python
-def aes_encrypt(key: Union[str, bytes], data: Union[str, bytes]) -> Union[str, bytes]:
+def aes_encrypt(data: Union[str, bytes], key: Union[str, bytes]) -> Union[str, bytes]:
     """
     使用 AES 密钥对数据进行加密。
 
@@ -209,7 +209,7 @@ def aes_encrypt(key: Union[str, bytes], data: Union[str, bytes]) -> Union[str, b
 
 ```python
 from EncroX.aes import aes_decrypt
-decrypted_data = aes_decrypt(key, encrypted_data)
+decrypted_data = aes_decrypt(encrypted_data, key)
 ```
 
 使用 AES 密钥解密数据，并返回解密后的原始数据。
@@ -217,13 +217,13 @@ decrypted_data = aes_decrypt(key, encrypted_data)
 #### 函数签名
 
 ```python
-def aes_decrypt(key: Union[str, bytes], encrypted_data: Union[str, bytes]) -> Union[str, bytes]:
+def aes_decrypt(encrypted_data: Union[str, bytes], key: Union[str, bytes]) -> Union[str, bytes]:
     """
     使用 AES 密钥解密数据。
 
     Args:
+	encrypted_data (str or bytes): 需要解密的数据，数据类型为字符串或字节。
         key (str or bytes): AES 密钥，当 key 的类型为 bytes 时，长度必须为 16、24 或 32 字节。
-        encrypted_data (str or bytes): 需要解密的数据，数据类型为字符串或字节。
 
     Returns:
         str or bytes: 解密后的原始数据，返回的类型与传入的数据类型相同。
