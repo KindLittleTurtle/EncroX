@@ -196,8 +196,8 @@ def aes_encrypt(data: Union[str, bytes], key: Union[str, bytes]) -> Union[str, b
     使用 AES 密钥对数据进行加密。
 
     Args:
-        key (str or bytes): AES 密钥，当 key 的类型为 bytes 时，长度必须为 16、24 或 32 字节。
         data (str or bytes): 需要加密的数据，数据类型为字符串或字节。
+        key (str or bytes): AES 密钥，当 key 的类型为 bytes 时，长度必须为 16、24 或 32 字节。
 
     Returns:
         str or bytes: 加密后的数据，返回的类型与传入的数据类型相同。
@@ -222,7 +222,7 @@ def aes_decrypt(encrypted_data: Union[str, bytes], key: Union[str, bytes]) -> Un
     使用 AES 密钥解密数据。
 
     Args:
-	encrypted_data (str or bytes): 需要解密的数据，数据类型为字符串或字节。
+        encrypted_data (str or bytes): 需要解密的数据，数据类型为字符串或字节。
         key (str or bytes): AES 密钥，当 key 的类型为 bytes 时，长度必须为 16、24 或 32 字节。
 
     Returns:
